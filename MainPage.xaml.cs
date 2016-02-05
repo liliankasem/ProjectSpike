@@ -34,7 +34,7 @@ namespace ProjectSpike
             //throw new NotImplementedException();
         }
 
-        private int CheckRoom(string item)
+        private int CheckRoom()
         {
            
 
