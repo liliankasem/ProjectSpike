@@ -31,7 +31,7 @@ namespace ProjectSpike
 
         private async void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         private int CheckRoom(string item)
