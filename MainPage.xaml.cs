@@ -167,6 +167,17 @@ namespace ProjectSpike
                 {
                     resultTextBlock.Visibility = Visibility.Visible;
                     resultTextBlock.Text = string.Format("Heard: '{0}', (Tag: '{1}', Confidence: {2})", args.Result.Text, tag, args.Result.Confidence.ToString());
+                    switch (tag)
+                    {
+                        case "Check":
+                            CheckRoom();
+                            break;
+                        case "Book":
+                            BookRoom();
+                            break;
+                        default:
+                            break;
+                    }
                 });
             }
             else
@@ -176,7 +187,7 @@ namespace ProjectSpike
                 await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     resultTextBlock.Visibility = Visibility.Visible;
-                    resultTextBlock.Text = string.Format("Sorry, I didn't catch that. (Heard: '{0}', Tag: {1}, Confidence: {2})", args.Result.Text, tag, args.Result.Confidence.ToString());
+                    //resultTextBlock.Text = string.Format("Sorry, I didn't catch that. (Heard: '{0}', Tag: {1}, Confidence: {2})", args.Result.Text, tag, args.Result.Confidence.ToString());
                 });
             }
         }
@@ -220,16 +231,16 @@ namespace ProjectSpike
         }
         private int CheckRoom()
         {
-           //Go to cloud (or office 365?)
-           //Check if {room} is "free" or "busy"
-           //return "free" or "busy"
-
+            //Go to cloud (or office 365?)
+            //Check if {room} is "free" or "busy"
+            //return "free" or "busy"
+            SelectRoom.SelectedIndex = 1; // Just to give visual feedback for testing purposes
             return 1;
         }
 
         private int BookRoom()
         {
-            
+            SelectRoom.SelectedIndex = 0; // for visual feedback
 
             return 1;
         }
