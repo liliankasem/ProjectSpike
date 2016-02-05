@@ -29,29 +29,29 @@
     <Command Name="CheckRoom">
       <Example>Ask, is this room free?</Example>
       <ListenFor>Ask, is this room free?</ListenFor>
-      <Feedback>x</Feedback>
-      <Navigate Target="a" />
+      <Feedback>Checking room availability</Feedback>
+      <Navigate />
     </Command>
 
     <Command Name="BookRoom">
       <Example>Ask, can I book this room?</Example>
       <ListenFor>Ask, can I book this room?</ListenFor>
-      <Feedback>x</Feedback>
-      <Navigate Target="b" />
+      <Feedback>Checking room availability</Feedback>
+      <Navigate />
     </Command>
 
     <Command Name="PlayMusic">
       <Example>Play, music</Example>
       <ListenFor>Play, music</ListenFor>
-      <Feedback>x</Feedback>
-      <Navigate Target="c" />
+      <Feedback>Playing your songs</Feedback>
+      <Navigate />
     </Command>
 
     <Command Name="CallContact">
       <Example>Call, Lilian</Example>
-      <ListenFor>Call, x</ListenFor>
-      <Feedback>x</Feedback>
-      <Navigate Target="d" />
+      <ListenFor>Call, {name}</ListenFor>
+      <Feedback>Calling {name}</Feedback>
+      <Navigate />
     </Command>
 
   </CommandSet>

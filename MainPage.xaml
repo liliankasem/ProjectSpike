@@ -8,5 +8,13 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel>
+            <ComboBox x:Name="SelectRoom">
+                <ComboBoxItem Name="A">Room A</ComboBoxItem>
+                <ComboBoxItem Name="B">Room B</ComboBoxItem>
+                <ComboBoxItem Name="C">Room C</ComboBoxItem>
+            </ComboBox>
+            <TextBlock x:Name="resultTextBlock" Width="400" Visibility="Collapsed"/>
+        </StackPanel>
     </Grid>
 </Page>
