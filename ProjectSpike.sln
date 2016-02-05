@@ -5,11 +5,6 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectSpike", "ProjectSpike.csproj", "{B5444A3B-9173-4F4E-AFB0-B569150A7417}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{517E6473-8362-41B5-9396-FD31134D4609}"
-	ProjectSection(SolutionItems) = preProject
-		VoiceCommands.xml = VoiceCommands.xml
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM

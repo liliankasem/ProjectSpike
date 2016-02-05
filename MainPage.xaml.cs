@@ -22,6 +22,9 @@ namespace ProjectSpike
     /// </summary>
     public sealed partial class MainPage : Page
     {
+
+        string room;
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -32,11 +35,14 @@ namespace ProjectSpike
         private async void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             //throw new NotImplementedException();
+            room = SelectRoom.SelectedValue.ToString();
         }
 
         private int CheckRoom()
         {
-           
+           //Go to cloud (or office 365?)
+           //Check if {room} is "free" or "busy"
+           //return "free" or "busy"
 
             return 1;
         }
