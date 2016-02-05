@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.VoiceCommands;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -22,6 +23,8 @@ namespace ProjectSpike
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        VoiceCommandServiceConnection voiceServiceConnection;
+
         public MainPage()
         {
             this.InitializeComponent();
