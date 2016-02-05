@@ -9,9 +9,7 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel>
-            <ComboBox x:Name="SelectRoom" SelectionChanged="selectOption_SelectionChanged" 
-                 SelectedValue="{Binding VMselectedOption, Mode=TwoWay}" 
-                 SelectedValuePath="Content">
+            <ComboBox x:Name="SelectRoom">
                 <ComboBoxItem Name="A">Room A</ComboBoxItem>
                 <ComboBoxItem Name="B">Room B</ComboBoxItem>
                 <ComboBoxItem Name="C">Room C</ComboBoxItem>
