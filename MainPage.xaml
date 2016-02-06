@@ -14,6 +14,7 @@
                 <ComboBoxItem Name="B">Room B</ComboBoxItem>
                 <ComboBoxItem Name="C">Room C</ComboBoxItem>
             </ComboBox>
+            <MediaElement x:Name="media" AutoPlay="False" MediaEnded="media_MediaEnded"/>
             <TextBlock x:Name="resultTextBlock" Width="400" Visibility="Collapsed"/>
         </StackPanel>
     </Grid>

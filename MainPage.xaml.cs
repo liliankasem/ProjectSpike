@@ -18,6 +18,7 @@ using Windows.ApplicationModel.Resources.Core;
 using Windows.Globalization;
 using Windows.Media.Capture;
 using Windows.Media.SpeechRecognition;
+using Windows.Media.SpeechSynthesis;
 using Windows.UI.Core;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -33,11 +34,15 @@ namespace ProjectSpike
         string room;
         private CoreDispatcher dispatcher;
 
+        // Speech recognizition
         private static uint HResultRecognizerNotFound = 0x8004503a;
         private static int NoCaptureDevicesHResult = -1072845856;
         private SpeechRecognizer speechRecognizer;
         private ResourceContext speechContext;
         private ResourceMap speechResourceMap;
+
+        // Speech synthesis
+        private SpeechSynthesizer synthesizer;
 
         public MainPage()
         {
@@ -121,9 +126,7 @@ namespace ProjectSpike
                 }
                 else
                 {
-
                     resultTextBlock.Visibility = Visibility.Collapsed;
-
 
                     // Handle continuous recognition events. Completed fires when various error states occur. ResultGenerated fires when
                     // some recognized phrases occur, or the garbage rule is hit.
@@ -146,6 +149,35 @@ namespace ProjectSpike
                 }
             }
 
+        }
+
+        private async void Speak(string text)
+        {
+            synthesizer = new SpeechSynthesizer();
+
+            speechContext = ResourceContext.GetForCurrentView();
+            speechContext.Languages = new string[] { SpeechSynthesizer.DefaultVoice.Language };
+
+            speechResourceMap = ResourceManager.Current.MainResourceMap.GetSubtree("LocalizationTTSResources");
+            // If the media is playing, the user has pressed the button to stop the playback.
+            if (media.CurrentState.Equals(MediaElementState.Playing))
+            {
+                media.Stop();
+            }
+            else
+            {
+                try
+                {
+                    SpeechSynthesisStream synthesisStream = await synthesizer.SynthesizeTextToStreamAsync(text);
+                    media.AutoPlay = true;
+                    media.SetSource(synthesisStream, synthesisStream.ContentType);
+                    media.Play();
+
+                }
+                catch (Exception)
+                {
+                }
+            }
         }
 
         private async void ContinuousRecognitionSession_ResultGenerated(SpeechContinuousRecognitionSession sender, SpeechContinuousRecognitionResultGeneratedEventArgs args)
@@ -222,6 +254,7 @@ namespace ProjectSpike
             //Go to cloud (or office 365?)
             //Check if {room} is "free" or "busy"
             //return "free" or "busy"
+            Speak("Checking room");
             SelectRoom.SelectedIndex = 1; // Just to give visual feedback for testing purposes
             return 1;
         }
