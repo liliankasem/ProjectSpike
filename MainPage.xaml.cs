@@ -53,6 +53,8 @@ namespace ProjectSpike
 
         private async void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
+            //SetupPersonGroup();
+
             dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
             bool permissionGained = await RequestMicrophonePermission();
 

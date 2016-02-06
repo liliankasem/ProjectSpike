@@ -127,10 +127,11 @@ namespace ProjectSpike
 
         private async void IdentifyUser(string imagePath)
         {
-           //string testImageFile = @"C:\Users\janin\Pictures\test.jpg";
-           string testImageFile = imagePath;
-
-            using (Stream s = File.OpenRead(testImageFile))
+            StorageFolder appFolder = await KnownFolders.PicturesLibrary.CreateFolderAsync("Capture", CreationCollisionOption.OpenIfExists);
+            StorageFile myfile = await appFolder.GetFileAsync(imagePath);
+            var randomAccessStream = await myfile.OpenReadAsync();
+           
+            using (Stream s = randomAccessStream.AsStreamForRead())
             {
                 var faces = await faceServiceClient.DetectAsync(s);
                 var faceIds = faces.Select(face => face.FaceId).ToArray();
@@ -260,7 +261,7 @@ namespace ProjectSpike
                     (uint) writeableBitmap.PixelHeight, 96.0, 96.0, pixels);
                 await encoder.FlushAsync();
             }
-            IdentifyUser(myfile.Path);
+            IdentifyUser(myfile.Name);
             
         }
     }
