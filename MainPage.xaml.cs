@@ -83,6 +83,7 @@ namespace ProjectSpike
         private void Activate(string v)
         {
             room = v;
+            selectedRoom.Text = v;
             Speak("Activated room " + v);
         }
 

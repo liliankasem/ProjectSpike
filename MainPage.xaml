@@ -9,7 +9,7 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Image Stretch="Uniform" Source="Assets/logo.png" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="24 24"/>
-        <StackPanel >
+        <StackPanel VerticalAlignment="Center">
             <TextBlock x:Name="selectedRoom" FontSize="48" VerticalAlignment="Bottom" HorizontalAlignment="Center">A</TextBlock>
             <MediaElement x:Name="media" AutoPlay="False"/>
             <TextBlock x:Name="resultTextBlock" Width="400" Visibility="Collapsed"/>
