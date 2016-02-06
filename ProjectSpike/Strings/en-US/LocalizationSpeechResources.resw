@@ -120,8 +120,8 @@
   <data name="raspberry" xml:space="preserve">
     <value>Raspberry</value>
   </data>
-  <data name="pomegranate" xml:space="preserve">
-    <value>Pomegranate</value>
+  <data name="apple" xml:space="preserve">
+    <value>apple</value>
   </data>
   <data name="BookRoom" xml:space="preserve">
     <value>Can I book this room</value>

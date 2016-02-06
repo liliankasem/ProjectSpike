@@ -90,8 +90,8 @@ namespace ProjectSpike
                     new SpeechRecognitionListConstraint(
                         new List<string>()
                         {
-                        speechResourceMap.GetValue("pomegranate", speechContext).ValueAsString
-                        }, "pomegranate"));
+                        speechResourceMap.GetValue("apple", speechContext).ValueAsString
+                        }, "apple"));
                 speechRecognizer.Constraints.Add(
                     new SpeechRecognitionListConstraint(
                         new List<string>()
@@ -211,9 +211,9 @@ namespace ProjectSpike
                         case "Set":
                             SetRoom();
                             break;
-                        case "pomegranate":
+                        case "apple":
                             if (settingRoomMode)
-                                Activate("Pomegranate");
+                                Activate("Apple");
                             settingRoomMode = false;
                             break;
                         case "raspberry":
