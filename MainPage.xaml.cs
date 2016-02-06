@@ -82,7 +82,8 @@ namespace ProjectSpike
 
         private void Activate(string v)
         {
-            
+            room = v;
+            Speak("Activated room " + v);
         }
 
         private void SetRoom()
