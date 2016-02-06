@@ -26,7 +26,7 @@ namespace ProjectSpike
     public partial class MainPage
     {
         private readonly IFaceServiceClient faceServiceClient = new FaceServiceClient("0c5c804cfbe345de8a120fe839ea1d9d");
-        string personGroupId = "Spike";
+        string personGroupId = "jani91248";
 
         private bool frontCam;
         private MediaCapture mediaCapture;
@@ -41,7 +41,15 @@ namespace ProjectSpike
             const string edImageDir = @"Assets\PersonGroup\Ed\";
             const string johnImageDir = @"Assets\PersonGroup\John\";
 
-            await faceServiceClient.CreatePersonGroupAsync(personGroupId, "Spike");
+            try
+            {
+                await faceServiceClient.CreatePersonGroupAsync(personGroupId, "spike");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return;
+            }
 
             // Define Users
             CreatePersonResult lilian = await faceServiceClient.CreatePersonAsync(
@@ -54,7 +62,7 @@ namespace ProjectSpike
             );
             CreatePersonResult jani = await faceServiceClient.CreatePersonAsync(
                 personGroupId,
-                "Yani"
+                "Jani"
             );
             CreatePersonResult ed = await faceServiceClient.CreatePersonAsync(
                 personGroupId,
@@ -109,7 +117,14 @@ namespace ProjectSpike
 
 
             //Train model
-            await faceServiceClient.TrainPersonGroupAsync(personGroupId);
+            try
+            {
+                await faceServiceClient.TrainPersonGroupAsync(personGroupId);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
 
             TrainingStatus trainingStatus = null;
             while (true)
