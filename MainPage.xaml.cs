@@ -165,8 +165,6 @@ namespace ProjectSpike
             {
                 await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    resultTextBlock.Visibility = Visibility.Visible;
-                    resultTextBlock.Text = string.Format("Heard: '{0}', (Tag: '{1}', Confidence: {2})", args.Result.Text, tag, args.Result.Confidence.ToString());
                     switch (tag)
                     {
                         case "Check":
@@ -178,16 +176,6 @@ namespace ProjectSpike
                         default:
                             break;
                     }
-                });
-            }
-            else
-            {
-                // In some scenarios, a developer may choose to ignore giving the user feedback in this case, if speech
-                // is not the primary input mechanism for the application.
-                await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                {
-                    resultTextBlock.Visibility = Visibility.Visible;
-                    //resultTextBlock.Text = string.Format("Sorry, I didn't catch that. (Heard: '{0}', Tag: {1}, Confidence: {2})", args.Result.Text, tag, args.Result.Confidence.ToString());
                 });
             }
         }
