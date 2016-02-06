@@ -87,7 +87,7 @@ namespace ProjectSpike
         private void Activate(string v)
         {
             room = v;
-            selectedRoom.Text = v.ToUpper();
+            selectedRoom.Text = v;
             Speak("Activated room " + v);
         }
 
@@ -103,27 +103,32 @@ namespace ProjectSpike
 
             Speak("Checking room");
 
-            string page = "http://spikeapi.azurewebsites.net/api/values/{0}" + room;
-
-            using (HttpClient client = new HttpClient())
-            using (HttpResponseMessage response = await client.GetAsync(page))
-            using (HttpContent content = response.Content)
+            string page = "http://spikeapi.azurewebsites.net/api/values/" + room;
+            try
             {
-                // ... Read the string.
-                string result = await content.ReadAsStringAsync();
-
-                // ... Display the result.
-                resultTextBlock.Visibility = Visibility.Visible;
-                resultTextBlock.Text = result;
-                Speak(result);
-
-                if (result != null &&
-                result.Length >= 50)
+                using (HttpClient client = new HttpClient())
+                using (HttpResponseMessage response = await client.GetAsync(page))
+                using (HttpContent content = response.Content)
                 {
-                    Debug.WriteLine(result.Substring(0, 50) + "...");
+                    // ... Read the string.
+                    string result = await content.ReadAsStringAsync();
+
+                    // ... Display the result.
+                    resultTextBlock.Visibility = Visibility.Visible;
+                    resultTextBlock.Text = result;
+                    Speak(result);
+
+                    if (result != null &&
+                        result.Length >= 50)
+                    {
+                        Debug.WriteLine(result.Substring(0, 50) + "...");
+                    }
                 }
             }
-
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
         }
 
         

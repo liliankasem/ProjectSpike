@@ -213,17 +213,17 @@ namespace ProjectSpike
                             break;
                         case "pomegranate":
                             if (settingRoomMode)
-                                Activate("pomegranate");
+                                Activate("Pomegranate");
                             settingRoomMode = false;
                             break;
                         case "raspberry":
                             if (settingRoomMode)
-                                Activate("raspberry");
+                                Activate("Raspberry");
                             settingRoomMode = false;
                             break;
                         case "melon":
                             if (settingRoomMode)
-                                Activate("melon");
+                                Activate("Melon");
                             settingRoomMode = false;
                             break;
                         case "Hello":
