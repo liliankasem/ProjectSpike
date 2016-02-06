@@ -114,7 +114,7 @@ namespace ProjectSpike
                     string result = await content.ReadAsStringAsync();
 
                     // ... Display the result.
-                    resultTextBlock.Visibility = Visibility.Visible;
+                    //resultTextBlock.Visibility = Visibility.Visible;
                     resultTextBlock.Text = result;
                     Speak(result);
 
