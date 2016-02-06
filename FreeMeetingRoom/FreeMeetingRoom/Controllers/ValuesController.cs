@@ -85,7 +85,7 @@ namespace FreeMeetingRoom.Controllers
                     // Iterate the appointments
 
                     if (appointments.Items.Count == 0)
-                        response = "There are no meetings for the rest of today";
+                        response = "The room is free";
                     else
                     {
                         DateTime appt = appointments.Items[0].Start;
