@@ -13,7 +13,7 @@
             <TextBlock x:Name="selectedRoom" FontSize="48" VerticalAlignment="Bottom" HorizontalAlignment="Center">Melon</TextBlock>
             <MediaElement x:Name="media" AutoPlay="False"/>
             <TextBlock x:Name="resultTextBlock" Width="400" Visibility="Collapsed"/>
-            <CaptureElement x:Name="captureElement" Width="0" Height="0" />
+            <CaptureElement x:Name="captureElement" Width="0" Height="0" VerticalAlignment="Bottom" />
         </StackPanel>
     </Grid>
 </Page>
