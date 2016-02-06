@@ -118,16 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="raspberry" xml:space="preserve">
-    <value>raspberry</value>
+    <value>Raspberry</value>
   </data>
   <data name="pomegranate" xml:space="preserve">
-    <value>pomegranate</value>
+    <value>Pomegranate</value>
   </data>
   <data name="BookRoom" xml:space="preserve">
     <value>Can I book this room</value>
   </data>
   <data name="melon" xml:space="preserve">
-    <value>melon</value>
+    <value>Melon</value>
   </data>
   <data name="CheckRoom" xml:space="preserve">
     <value>Is this room free</value>
