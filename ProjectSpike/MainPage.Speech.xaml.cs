@@ -90,20 +90,20 @@ namespace ProjectSpike
                     new SpeechRecognitionListConstraint(
                         new List<string>()
                         {
-                        speechResourceMap.GetValue("a", speechContext).ValueAsString
-                        }, "a"));
+                        speechResourceMap.GetValue("pomegranate", speechContext).ValueAsString
+                        }, "pomegranate"));
                 speechRecognizer.Constraints.Add(
                     new SpeechRecognitionListConstraint(
                         new List<string>()
                         {
-                        speechResourceMap.GetValue("b", speechContext).ValueAsString
-                        }, "b"));
+                        speechResourceMap.GetValue("raspberry", speechContext).ValueAsString
+                        }, "raspberry"));
                 speechRecognizer.Constraints.Add(
                     new SpeechRecognitionListConstraint(
                         new List<string>()
                         {
-                        speechResourceMap.GetValue("c", speechContext).ValueAsString
-                        }, "c"));
+                        speechResourceMap.GetValue("melon", speechContext).ValueAsString
+                        }, "melon"));
                 speechRecognizer.Constraints.Add(
                     new SpeechRecognitionListConstraint(
                         new List<string>()
@@ -211,19 +211,19 @@ namespace ProjectSpike
                         case "Set":
                             SetRoom();
                             break;
-                        case "a":
+                        case "pomegranate":
                             if (settingRoomMode)
-                                Activate("a");
+                                Activate("pomegranate");
                             settingRoomMode = false;
                             break;
-                        case "b":
+                        case "raspberry":
                             if (settingRoomMode)
-                                Activate("b");
+                                Activate("raspberry");
                             settingRoomMode = false;
                             break;
-                        case "c":
+                        case "melon":
                             if (settingRoomMode)
-                                Activate("c");
+                                Activate("melon");
                             settingRoomMode = false;
                             break;
                         case "Hello":

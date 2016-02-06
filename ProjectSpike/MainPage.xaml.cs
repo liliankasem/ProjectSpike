@@ -105,19 +105,19 @@ namespace ProjectSpike
 
             Speak("Checking room");
 
-            if(room == "A")
+            if(room == "pomegranate")
             {
                 resultTextBlock.Visibility = Visibility.Visible;
                 resultTextBlock.Text = "Yes it is for the next 3 hours";
                 Speak("Yes it is for the next 3 hours");
             }
-            else if(room == "B")
+            else if(room == "raspberry")
             {
                 resultTextBlock.Visibility = Visibility.Visible;
                 resultTextBlock.Text = "No it's not, but rooms A and C are free";
                 Speak("No it's not, but rooms A and C are free");
             }
-            else if(room == "C")
+            else if(room == "melon")
             {
                 resultTextBlock.Visibility = Visibility.Visible;
                 resultTextBlock.Text = "Yes it is, but only for the next hour!";

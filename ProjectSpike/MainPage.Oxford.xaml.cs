@@ -25,8 +25,8 @@ namespace ProjectSpike
 {
     public partial class MainPage
     {
-        private readonly IFaceServiceClient faceServiceClient = new FaceServiceClient("0c5c804cfbe345de8a120fe839ea1d9d");
-        string personGroupId = "jani91248";
+        private readonly IFaceServiceClient faceServiceClient = new FaceServiceClient("92854f62cd6d4823acddf63846fd788e");
+        string personGroupId = "jani91249";
 
         private bool frontCam;
         private MediaCapture mediaCapture;
