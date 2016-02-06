@@ -20,6 +20,8 @@ using Windows.Media.Capture;
 using Windows.Media.SpeechRecognition;
 using Windows.Media.SpeechSynthesis;
 using Windows.UI.Core;
+using System.Net.Http;
+using System.Diagnostics;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -95,57 +97,36 @@ namespace ProjectSpike
             Speak("Please select the room");
         }
 
-        private int CheckRoom()
-        {
-            //Go to cloud (or office 365?)
-            //Check if {room} is "free" or "busy"
-            //return "free" or "busy"
-
+        private async void CheckRoom()
+        {   
             room = selectedRoom.Text;
 
             Speak("Checking room");
 
-            if(room == "pomegranate")
+            string page = "http://spikeapi.azurewebsites.net/api/values/{0}" + room;
+
+            using (HttpClient client = new HttpClient())
+            using (HttpResponseMessage response = await client.GetAsync(page))
+            using (HttpContent content = response.Content)
             {
+                // ... Read the string.
+                string result = await content.ReadAsStringAsync();
+
+                // ... Display the result.
                 resultTextBlock.Visibility = Visibility.Visible;
-                resultTextBlock.Text = "Yes it is for the next 3 hours";
-                Speak("Yes it is for the next 3 hours");
-            }
-            else if(room == "raspberry")
-            {
-                resultTextBlock.Visibility = Visibility.Visible;
-                resultTextBlock.Text = "No it's not, but rooms A and C are free";
-                Speak("No it's not, but rooms A and C are free");
-            }
-            else if(room == "melon")
-            {
-                resultTextBlock.Visibility = Visibility.Visible;
-                resultTextBlock.Text = "Yes it is, but only for the next hour!";
-                Speak("Yes it is, but only for the next hour");
+                resultTextBlock.Text = result;
+                Speak(result);
+
+                if (result != null &&
+                result.Length >= 50)
+                {
+                    Debug.WriteLine(result.Substring(0, 50) + "...");
+                }
             }
 
-            return 1;
         }
 
-        private int BookRoom()
-        {
-            
+        
 
-            return 1;
-        }
-
-        private int PlayMusic(string item)
-        {
-            
-
-            return 1;
-        }
-
-        private int CallContact(string item)
-        {
-            
-
-            return 1;
-        }
     }
 }

@@ -205,9 +205,9 @@ namespace ProjectSpike
                         case "Check":
                             CheckRoom();
                             break;
-                        case "Book":
-                            BookRoom();
-                            break;
+                        //case "Book":
+                        //    BookRoom();
+                        //    break;
                         case "Set":
                             SetRoom();
                             break;
