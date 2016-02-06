@@ -11,6 +11,15 @@ using Windows.Foundation;
 using Windows.Storage.Streams;
 using Windows.Graphics.Imaging;
 using Windows.UI.Xaml.Media.Imaging;
+using System.Diagnostics;
+using Windows.Devices.Enumeration;
+using Windows.UI.Xaml.Controls;
+using Windows.Media.Core;
+using Windows.Media.MediaProperties;
+using Windows.Graphics.Display;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace ProjectSpike
 {
@@ -18,6 +27,10 @@ namespace ProjectSpike
     {
         private readonly IFaceServiceClient faceServiceClient = new FaceServiceClient("0c5c804cfbe345de8a120fe839ea1d9d");
         string personGroupId = "Spike";
+
+        private bool frontCam;
+        private MediaCapture mediaCapture;
+        private InMemoryRandomAccessStream fPhotoStream = new InMemoryRandomAccessStream();
 
         private async void SetupPersonGroup()
         {
@@ -41,7 +54,7 @@ namespace ProjectSpike
             );
             CreatePersonResult jani = await faceServiceClient.CreatePersonAsync(
                 personGroupId,
-                "Jani"
+                "Yani"
             );
             CreatePersonResult ed = await faceServiceClient.CreatePersonAsync(
                 personGroupId,
@@ -95,7 +108,6 @@ namespace ProjectSpike
             }
 
 
-
             //Train model
             await faceServiceClient.TrainPersonGroupAsync(personGroupId);
 
@@ -123,20 +135,21 @@ namespace ProjectSpike
                 var faces = await faceServiceClient.DetectAsync(s);
                 var faceIds = faces.Select(face => face.FaceId).ToArray();
 
-                var results = await faceServiceClient.IdentityAsync(personGroupId, faceIds);
+                var results = await faceServiceClient.IdentifyAsync(personGroupId, faceIds);
                 foreach (var identifyResult in results)
                 {
-                    //Console.WriteLine("Result of face: {0}", identifyResult.FaceId);
+                    Debug.WriteLine("Result of face: {0}", identifyResult.FaceId);
+
                     if (identifyResult.Candidates.Length == 0)
                     {
-                        //Console.WriteLine("No one identified");
+                        Debug.WriteLine("No one identified");
                     }
                     else
                     {
                         // Get top 1 among all candidates returned
                         var candidateId = identifyResult.Candidates[0].PersonId;
                         var person = await faceServiceClient.GetPersonAsync(personGroupId, candidateId);
-                        //Console.WriteLine("Identified as {0}", person.Name);
+                        Debug.WriteLine("Identified as {0}", person.Name);
                         Speak("Hello, " + person.Name);
                     }
                 }
@@ -146,32 +159,107 @@ namespace ProjectSpike
         private async void TakePicture()
         {
             //Take picture
-            CameraCaptureUI captureUI = new CameraCaptureUI();
-            captureUI.PhotoSettings.Format = CameraCaptureUIPhotoFormat.Jpeg;
-            captureUI.PhotoSettings.CroppedSizeInPixels = new Size(300, 300);
+            mediaCapture = new MediaCapture();
+            DeviceInformationCollection devices = await DeviceInformation.FindAllAsync(DeviceClass.VideoCapture);
 
-            StorageFile photo = await captureUI.CaptureFileAsync(CameraCaptureUIMode.Photo);
+            // Use the front camera if found one
+            if (devices == null) return;
 
-            if (photo == null)
+            DeviceInformation info = devices[0];
+
+            foreach (var devInfo in devices)
             {
-                // User cancelled photo capture
-                return;
+                if (devInfo.Name.ToLowerInvariant().Contains("front"))
+                {
+                    info = devInfo;
+                    frontCam = true;
+                    continue;
+                }
             }
 
-            IRandomAccessStream stream = await photo.OpenAsync(FileAccessMode.Read);
-            BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
-            SoftwareBitmap softwareBitmap = await decoder.GetSoftwareBitmapAsync();
+            await mediaCapture.InitializeAsync(
+                new MediaCaptureInitializationSettings
+                {
+                    VideoDeviceId = info.Id
+                });
 
-            SoftwareBitmap softwareBitmapBGR8 = SoftwareBitmap.Convert(softwareBitmap,
-            BitmapPixelFormat.Bgra8,
-            BitmapAlphaMode.Premultiplied);
+            captureElement.Source = mediaCapture;
+            captureElement.FlowDirection = frontCam ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+            await mediaCapture.StartPreviewAsync();
 
-            SoftwareBitmapSource bitmapSource = new SoftwareBitmapSource();
-            await bitmapSource.SetBitmapAsync(softwareBitmapBGR8);
+            DisplayInformation displayInfo = DisplayInformation.GetForCurrentView();
+            displayInfo.OrientationChanged += DisplayInfo_OrientationChanged;
 
-            //Call IdentifyUser
-            IdentifyUser(bitmapSource.ToString());
+            DisplayInfo_OrientationChanged(displayInfo, null);
+
         }
 
+        private void DisplayInfo_OrientationChanged(DisplayInformation sender, object args)
+        {
+            if (mediaCapture != null)
+            {
+                mediaCapture.SetPreviewRotation(frontCam
+                ? VideoRotationLookup(sender.CurrentOrientation, true)
+                : VideoRotationLookup(sender.CurrentOrientation, false));
+                var rotation = VideoRotationLookup(sender.CurrentOrientation, false);
+                mediaCapture.SetRecordRotation(rotation);
+            }
+        }
+
+        private VideoRotation VideoRotationLookup(DisplayOrientations displayOrientation, bool counterclockwise)
+        {
+            switch (displayOrientation)
+            {
+                case DisplayOrientations.Landscape:
+                    return VideoRotation.None;
+
+                case DisplayOrientations.Portrait:
+                    return (counterclockwise) ? VideoRotation.Clockwise270Degrees : VideoRotation.Clockwise90Degrees;
+
+                case DisplayOrientations.LandscapeFlipped:
+                    return VideoRotation.Clockwise180Degrees;
+
+                case DisplayOrientations.PortraitFlipped:
+                    return (counterclockwise) ? VideoRotation.Clockwise90Degrees :
+                    VideoRotation.Clockwise270Degrees;
+
+                default:
+                    return VideoRotation.None;
+            }
+        }
+
+        private async void OnTap(object sender, TappedRoutedEventArgs e)
+        {
+            ImageEncodingProperties imageProperties = ImageEncodingProperties.CreateJpeg();
+
+            mediaCapture.CapturePhotoToStreamAsync(imageProperties, fPhotoStream).AsTask().Wait();
+
+            fPhotoStream.FlushAsync().AsTask().Wait();
+            fPhotoStream.Seek(0);
+            WriteableBitmap writeableBitmap = new WriteableBitmap(300, 300);
+            writeableBitmap.SetSource(fPhotoStream);
+
+            await mediaCapture.StopPreviewAsync();
+
+            Guid photoID = System.Guid.NewGuid();
+            string photolocation = photoID.ToString() + ".jpg";  //file name
+            StorageFolder appFolder = await KnownFolders.PicturesLibrary.CreateFolderAsync("Capture", CreationCollisionOption.OpenIfExists);
+            StorageFile myfile = await appFolder.CreateFileAsync(photolocation, CreationCollisionOption.ReplaceExisting);
+
+            IRandomAccessStream stream = await myfile.OpenAsync(FileAccessMode.ReadWrite);
+            BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, stream);
+
+            // Get pixels of the WriteableBitmap object 
+            Stream pixelStream = writeableBitmap.PixelBuffer.AsStream();
+            byte[] pixels = new byte[pixelStream.Length];
+            await pixelStream.ReadAsync(pixels, 0, pixels.Length);
+
+            // Save the image file with jpg extension 
+            encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, (uint)writeableBitmap.PixelWidth, (uint)writeableBitmap.PixelHeight, 96.0, 96.0, pixels);
+            await encoder.FlushAsync();
+
+            IdentifyUser(myfile.Path + "/" + myfile.Name);
+            
+        }
     }
 }
