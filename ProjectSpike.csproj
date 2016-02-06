@@ -112,6 +112,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\logo.png" />
+    <Content Include="Assets\PersonGroup\Ed\Group1-Ed1.jpg" />
+    <Content Include="Assets\PersonGroup\Ed\Group1-Ed2.jpg" />
+    <Content Include="Assets\PersonGroup\Ed\Group1-Ed3.jpg" />
+    <Content Include="Assets\PersonGroup\Jani\Group1-Jani1.jpg" />
+    <Content Include="Assets\PersonGroup\Jani\Group1-Jani2.jpg" />
+    <Content Include="Assets\PersonGroup\Jani\Group1-Jani3.jpg" />
+    <Content Include="Assets\PersonGroup\John\Group1-John1.jpg" />
+    <Content Include="Assets\PersonGroup\John\Group1-John2.jpg" />
+    <Content Include="Assets\PersonGroup\John\Group1-John3.jpg" />
     <Content Include="Assets\PersonGroup\Lilian\Group1-Lilian1.jpg" />
     <Content Include="Assets\PersonGroup\Lilian\Group1-Lilian2.jpg" />
     <Content Include="Assets\PersonGroup\Lilian\Group1-Lilian3.jpg" />
@@ -137,11 +146,7 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets\PersonGroup\Ed\" />
-    <Folder Include="Assets\PersonGroup\Jani\" />
-    <Folder Include="Assets\PersonGroup\John\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
