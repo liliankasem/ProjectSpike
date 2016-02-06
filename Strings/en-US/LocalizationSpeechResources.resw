@@ -118,9 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BookRoom" xml:space="preserve">
-    <value>Ask, can I book this room</value>
+    <value>Can I book this room</value>
   </data>
   <data name="CheckRoom" xml:space="preserve">
-    <value>Ask, is this room free</value>
+    <value>Is this room free</value>
+  </data>
+  <data name="SetRoom" xml:space="preserve">
+    <value>Set room {x}</value>
   </data>
 </root>

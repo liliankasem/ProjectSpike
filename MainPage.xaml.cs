@@ -254,8 +254,30 @@ namespace ProjectSpike
             //Go to cloud (or office 365?)
             //Check if {room} is "free" or "busy"
             //return "free" or "busy"
+
+            room = ((ComboBoxItem)SelectRoom.SelectedItem).Content.ToString();
+
             Speak("Checking room");
-            SelectRoom.SelectedIndex = 1; // Just to give visual feedback for testing purposes
+
+            if(room == "Room A")
+            {
+                resultTextBlock.Visibility = Visibility.Visible;
+                resultTextBlock.Text = "Yes it is for the next 3 hours";
+                Speak("Yes it is for the next 3 hours");
+            }
+            else if(room == "Room B")
+            {
+                resultTextBlock.Visibility = Visibility.Visible;
+                resultTextBlock.Text = "No it's not, but rooms A and C are free";
+                Speak("No it's not, but rooms A and C are free");
+            }
+            else if(room == "Room C")
+            {
+                resultTextBlock.Visibility = Visibility.Visible;
+                resultTextBlock.Text = "Yes it is, but only for the next hour!";
+                Speak("Yes it is, but only for the next hour");
+            }
+
             return 1;
         }
 

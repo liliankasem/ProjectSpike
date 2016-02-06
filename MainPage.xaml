@@ -8,13 +8,14 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel>
+        <Image Stretch="Uniform" Source="Assets/logo.png" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="24 24"/>
+        <StackPanel >
             <ComboBox x:Name="SelectRoom">
                 <ComboBoxItem Name="A">Room A</ComboBoxItem>
                 <ComboBoxItem Name="B">Room B</ComboBoxItem>
                 <ComboBoxItem Name="C">Room C</ComboBoxItem>
             </ComboBox>
-            <MediaElement x:Name="media" AutoPlay="False" MediaEnded="media_MediaEnded"/>
+            <MediaElement x:Name="media" AutoPlay="False"/>
             <TextBlock x:Name="resultTextBlock" Width="400" Visibility="Collapsed"/>
         </StackPanel>
     </Grid>
