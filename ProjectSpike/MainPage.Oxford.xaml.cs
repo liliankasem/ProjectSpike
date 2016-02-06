@@ -277,7 +277,7 @@ namespace ProjectSpike
                 await encoder.FlushAsync();
             }
             IdentifyUser(myfile.Name);
-            
+            fPhotoStream.Seek(0);
         }
     }
 }
