@@ -26,7 +26,7 @@ namespace ProjectSpike
     public partial class MainPage
     {
         private readonly IFaceServiceClient faceServiceClient = new FaceServiceClient("92854f62cd6d4823acddf63846fd788e");
-        string personGroupId = "jani91249";
+        string personGroupId = "jani9";
 
         private bool frontCam;
         private MediaCapture mediaCapture;
@@ -144,8 +144,7 @@ namespace ProjectSpike
         {
             StorageFolder appFolder = await KnownFolders.PicturesLibrary.CreateFolderAsync("Capture", CreationCollisionOption.OpenIfExists);
             StorageFile myfile = await appFolder.GetFileAsync(imagePath);
-            var randomAccessStream = await myfile.OpenReadAsync();
-           
+            using (var randomAccessStream = await myfile.OpenReadAsync())
             using (Stream s = randomAccessStream.AsStreamForRead())
             {
                 var faces = await faceServiceClient.DetectAsync(s);
@@ -207,7 +206,8 @@ namespace ProjectSpike
             displayInfo.OrientationChanged += DisplayInfo_OrientationChanged;
 
             DisplayInfo_OrientationChanged(displayInfo, null);
-
+            await Task.Delay(TimeSpan.FromSeconds(2));
+            OnTap();
         }
 
         private void DisplayInfo_OrientationChanged(DisplayInformation sender, object args)
@@ -244,7 +244,7 @@ namespace ProjectSpike
             }
         }
 
-        private async void OnTap(object sender, TappedRoutedEventArgs e)
+        private async void OnTap()
         {
             ImageEncodingProperties imageProperties = ImageEncodingProperties.CreateJpeg();
 

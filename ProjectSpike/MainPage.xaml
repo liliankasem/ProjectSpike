@@ -7,13 +7,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Tapped="OnTap">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Image Stretch="Uniform" Source="Assets/logo.png" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="24 24"/>
         <StackPanel VerticalAlignment="Center">
             <TextBlock x:Name="selectedRoom" FontSize="48" VerticalAlignment="Bottom" HorizontalAlignment="Center">Melon</TextBlock>
             <MediaElement x:Name="media" AutoPlay="False"/>
             <TextBlock x:Name="resultTextBlock" Width="400" Visibility="Collapsed"/>
-            <CaptureElement x:Name="captureElement" Width="300" Height="300" />
+            <CaptureElement x:Name="captureElement" Width="100" Height="100" />
         </StackPanel>
     </Grid>
 </Page>
