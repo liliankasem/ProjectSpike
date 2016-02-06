@@ -127,8 +127,8 @@ namespace ProjectSpike
 
         private async void IdentifyUser(string imagePath)
         {
-            //string testImageFile = @"D:\Pictures\test_img1.jpg";
-            string testImageFile = imagePath;
+           //string testImageFile = @"C:\Users\janin\Pictures\test.jpg";
+           string testImageFile = imagePath;
 
             using (Stream s = File.OpenRead(testImageFile))
             {
@@ -242,23 +242,25 @@ namespace ProjectSpike
             await mediaCapture.StopPreviewAsync();
 
             Guid photoID = System.Guid.NewGuid();
-            string photolocation = photoID.ToString() + ".jpg";  //file name
+            string photolocation = "face.jpg";  //file name
             StorageFolder appFolder = await KnownFolders.PicturesLibrary.CreateFolderAsync("Capture", CreationCollisionOption.OpenIfExists);
             StorageFile myfile = await appFolder.CreateFileAsync(photolocation, CreationCollisionOption.ReplaceExisting);
 
-            IRandomAccessStream stream = await myfile.OpenAsync(FileAccessMode.ReadWrite);
-            BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, stream);
+            using (IRandomAccessStream stream = await myfile.OpenAsync(FileAccessMode.ReadWrite))
+            {
+                BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, stream);
 
-            // Get pixels of the WriteableBitmap object 
-            Stream pixelStream = writeableBitmap.PixelBuffer.AsStream();
-            byte[] pixels = new byte[pixelStream.Length];
-            await pixelStream.ReadAsync(pixels, 0, pixels.Length);
+                // Get pixels of the WriteableBitmap object 
+                Stream pixelStream = writeableBitmap.PixelBuffer.AsStream();
+                byte[] pixels = new byte[pixelStream.Length];
+                await pixelStream.ReadAsync(pixels, 0, pixels.Length);
 
-            // Save the image file with jpg extension 
-            encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, (uint)writeableBitmap.PixelWidth, (uint)writeableBitmap.PixelHeight, 96.0, 96.0, pixels);
-            await encoder.FlushAsync();
-
-            IdentifyUser(myfile.Path + "/" + myfile.Name);
+                // Save the image file with jpg extension 
+                encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, (uint) writeableBitmap.PixelWidth,
+                    (uint) writeableBitmap.PixelHeight, 96.0, 96.0, pixels);
+                await encoder.FlushAsync();
+            }
+            IdentifyUser(myfile.Path);
             
         }
     }
