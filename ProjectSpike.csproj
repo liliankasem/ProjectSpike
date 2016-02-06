@@ -111,6 +111,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\logo.png" />
+    <Content Include="Assets\PersonGroup\Lilian\Group1-Lilian1.jpg" />
+    <Content Include="Assets\PersonGroup\Lilian\Group1-Lilian2.jpg" />
+    <Content Include="Assets\PersonGroup\Lilian\Group1-Lilian3.jpg" />
+    <Content Include="Assets\PersonGroup\Paul\Group1-Paul1.jpg" />
+    <Content Include="Assets\PersonGroup\Paul\Group1-Paul2.jpg" />
+    <Content Include="Assets\PersonGroup\Paul\Group1-Paul3.jpg" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -129,6 +135,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\PersonGroup\Ed\" />
+    <Folder Include="Assets\PersonGroup\Jani\" />
+    <Folder Include="Assets\PersonGroup\John\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -135,4 +135,7 @@
   <data name="SetRoom" xml:space="preserve">
     <value>Set room</value>
   </data>
+  <data name="IdentifyUser" xml:space="preserve">
+    <value>Hello</value>
+  </data>
 </root>

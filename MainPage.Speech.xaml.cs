@@ -104,6 +104,12 @@ namespace ProjectSpike
                         {
                         speechResourceMap.GetValue("c", speechContext).ValueAsString
                         }, "c"));
+                speechRecognizer.Constraints.Add(
+                    new SpeechRecognitionListConstraint(
+                        new List<string>()
+                        {
+                        speechResourceMap.GetValue("Hello", speechContext).ValueAsString
+                        }, "Hello"));
 
                 SpeechRecognitionCompilationResult result = await speechRecognizer.CompileConstraintsAsync();
                 if (result.Status != SpeechRecognitionResultStatus.Success)
@@ -219,6 +225,9 @@ namespace ProjectSpike
                             if (settingRoomMode)
                                 Activate("c");
                             settingRoomMode = false;
+                            break;
+                        case "Hello":
+                            IdentifyUser();
                             break;
 
                         default:
