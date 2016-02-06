@@ -227,7 +227,7 @@ namespace ProjectSpike
                             settingRoomMode = false;
                             break;
                         case "Hello":
-                            IdentifyUser();
+                            TakePicture();
                             break;
 
                         default:
